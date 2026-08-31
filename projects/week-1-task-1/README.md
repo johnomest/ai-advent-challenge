@@ -30,8 +30,8 @@ python projects/week-1-task-1/main.py
 Введите название трека первой строкой и краткое описание второй:
 
 ```text
-Name: TAKIPARIO
-Description: Phonk track by Astin Ray and VAVA with Brazilian street energy, heavy bass, springy rhythm, and vocal hooks
+name: Astin Ray, VAVA - TAKIPARIO
+desc: agressive phonk with female vocal
 ```
 
 Программа отправит данные модели `deepseek-v4-flash` и выведет питч из трёх предложений.

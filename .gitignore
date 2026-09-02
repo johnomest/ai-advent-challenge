@@ -1,4 +1,6 @@
 .env
+.idea/
+chat/
 lessons/
 summary/
 __pycache__/

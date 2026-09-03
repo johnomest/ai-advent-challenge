@@ -11,12 +11,25 @@ sys.stdout.reconfigure(encoding="utf-8")
 API_URL = "https://api.deepseek.com/chat/completions"
 MODEL = "deepseek-v4-flash"
 MAX_TOKENS = 1200
-EXPECTED_PATH = "A-C-B-D-E-F"
-EXPECTED_COST = 13
-TASK = """An undirected weighted graph has these edges:
-A-B: 4, A-C: 2, B-C: 1, B-D: 5, C-D: 8,
-C-E: 10, D-E: 2, D-F: 6, E-F: 3.
-Find the shortest path from A to F and its total cost."""
+EXPECTED_FACTS = {
+    "A conversion = 3%": r"\b3(?:\.0+)?\s*%",
+    "B conversion = 4%": r"\b4(?:\.0+)?\s*%",
+    "A average order value = $300": r"\b300(?:\.0+)?\b",
+    "B average order value = $280": r"\b280(?:\.0+)?\b",
+    "A ROAS = 6": r"\b6(?:\.0+)?\s*(?:x|times)?\b",
+    "B ROAS = 4.48": r"\b4\.48\s*x?\b",
+    "A profit = $36,000": r"\b36000(?:\.0+)?\b",
+    "B profit = $24,800": r"\b24800(?:\.0+)?\b",
+}
+TASK = """An online store ran two advertising campaigns.
+Campaign A: 12,000 visitors, 360 orders, $108,000 revenue,
+$18,000 ad spend, and $54,000 cost of goods sold.
+Campaign B: 8,000 visitors, 320 orders, $89,600 revenue,
+$20,000 ad spend, and $44,800 cost of goods sold.
+
+For each campaign, calculate conversion rate, average order value, ROAS,
+and profit after advertising and cost of goods sold. Recommend a campaign
+when the priority is maximum profit and ROAS, and explain the trade-off."""
 
 
 def api_key() -> str:
@@ -68,14 +81,22 @@ def generate(system_prompt: str, user_prompt: str) -> str:
     return result["choices"][0]["message"]["content"].strip()
 
 
-def evaluate_response(response: str) -> tuple[bool, bool, bool]:
-    normalized = response.upper()
-    for separator in ("->", "→", "—", "–", ">"):
-        normalized = normalized.replace(separator, "-")
-    normalized = re.sub(r"\s+", "", normalized)
-    path_correct = EXPECTED_PATH in normalized
-    cost_correct = re.search(rf"\b{EXPECTED_COST}\b", response) is not None
-    return path_correct, cost_correct, path_correct and cost_correct
+def evaluate_response(response: str) -> dict[str, bool]:
+    normalized = response.lower().replace(",", "").replace("$", "")
+    checks = {
+        label: re.search(pattern, normalized, re.IGNORECASE) is not None
+        for label, pattern in EXPECTED_FACTS.items()
+    }
+    recommendation = re.search(
+        r"(?:recommend|choose|prefer|better|winner|most effective)"
+        r"[^.\n]{0,80}campaign\s+a\b|"
+        r"campaign\s+a[^.\n]{0,80}"
+        r"(?:recommend|choose|prefer|better|winner|most effective)",
+        normalized,
+        re.IGNORECASE,
+    )
+    checks["Recommend campaign A"] = recommendation is not None
+    return checks
 
 
 def print_solution(title: str, response: str) -> None:
@@ -113,34 +134,34 @@ def main() -> None:
     solutions["Expert panel"] = generate(
         (
             "You are a panel of three independent experts solving the user's task. "
-            "ANALYST derives a solution. ENGINEER verifies it with a suitable algorithm. "
-            "CRITIC searches for mistakes and proposes a corrected solution if needed. "
-            "Show each expert's answer, then produce a CONSENSUS with the final path "
-            "and total cost."
+            "DATA ANALYST calculates every requested metric. FINANCE SPECIALIST "
+            "independently verifies the formulas and business conclusion. CRITIC "
+            "searches for calculation errors and hidden trade-offs. Show each expert's "
+            "answer, then produce a CONSENSUS with all metrics and a recommendation."
         ),
         TASK,
     )
     print_solution("4. EXPERT PANEL", solutions["Expert panel"])
 
     print(f"\n{'=' * 12} COMPARISON {'=' * 12}")
-    correct_methods = []
+    evaluations = {}
     for name, response in solutions.items():
-        path_correct, cost_correct, correct = evaluate_response(response)
-        if correct:
-            correct_methods.append(name)
-        print(
-            f"{name}: path={'PASS' if path_correct else 'FAIL'}, "
-            f"cost={'PASS' if cost_correct else 'FAIL'}, "
-            f"words={len(response.split())}"
-        )
+        checks = evaluate_response(response)
+        evaluations[name] = sum(checks.values())
+        missing = [label for label, matched in checks.items() if not matched]
+        print(f"{name}: accuracy={evaluations[name]}/{len(checks)}, words={len(response.split())}")
+        if missing:
+            print(f"  Missing or incorrect: {', '.join(missing)}")
 
     answers_differ = len({response.strip() for response in solutions.values()}) > 1
+    best_score = max(evaluations.values())
+    best_methods = [name for name, score in evaluations.items() if score == best_score]
     print(f"Answers differ: {'YES' if answers_differ else 'NO'}")
-    if correct_methods:
-        print(f"Most accurate: {', '.join(correct_methods)}")
-    else:
-        print("Most accurate: none matched the known answer")
-    print(f"Known answer: {EXPECTED_PATH}, cost {EXPECTED_COST}")
+    print(f"Most accurate: {', '.join(best_methods)} ({best_score}/9)")
+    print(
+        "Known answer: A = 3%, $300, 6.0 ROAS, $36,000 profit; "
+        "B = 4%, $280, 4.48 ROAS, $24,800 profit; recommend A for profit and ROAS."
+    )
 
 
 if __name__ == "__main__":

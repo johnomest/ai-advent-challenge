@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-07",
+  "framework": "vanilla HTML, CSS and JavaScript",
+  "existing_interface": "Python CLI in main.py; additive local web interface in web.py",
+  "existing_design_system": null,
+  "font_stack": "Native Segoe UI Variable / Segoe UI, Cyrillic-capable and offline",
+  "palette": "Coral, warm light paper and restrained coral action",
+  "motion": "No library; new-answer opacity and button press only",
+  "spacing": "4-point semantic token scale",
+  "audience": "User and course curator, local use",
+  "use_case": "Music pitch generation and full follow-up conversation",
+  "tone": "Warm, ordinary, human"
+}

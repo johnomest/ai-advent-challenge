@@ -1,0 +1,92 @@
+/* Hallmark · macrostructure: Split Studio · tone: warm, human · anchor hue: coral · theme: Coral · nav: N9 · footer: Ft2 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 */
+* { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-base); line-height: var(--text-leading); }
+[hidden] { display: none !important; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { min-width: 0; overflow-wrap: anywhere; font-family: var(--font-display); font-style: normal; font-weight: var(--font-weight-heading); line-height: var(--text-heading-leading); }
+h1 { font-size: var(--text-display); letter-spacing: var(--text-tracking); }
+h2 { font-size: var(--text-lg); letter-spacing: var(--text-tracking); }
+h3 { font-size: var(--text-md); }
+button, input, textarea { font-family: var(--font-body); font-size: var(--text-base); }
+button { cursor: pointer; }
+:focus-visible { outline: var(--rule-focus) solid var(--color-focus); outline-offset: var(--rule-focus-offset); }
+.page { max-width: var(--page-width); margin-inline: auto; padding-inline: var(--space-page); }
+.page-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-md); padding-block: var(--space-lg) var(--space-xl); }
+.brand-dot { color: var(--color-accent); }
+.workspace { display: grid; gap: var(--space-xl); padding-bottom: var(--space-2xl); }
+.track-panel, .conversation { min-width: 0; }
+.intro { margin-block: var(--space-sm) var(--space-lg); max-width: 45ch; color: var(--color-muted); }
+.field { display: grid; gap: var(--space-xs); margin-bottom: var(--space-md); }
+label { font-weight: var(--font-weight-label); }
+input, textarea { display: block; width: 100%; min-width: 0; min-height: var(--control-height); border: var(--rule-width) solid var(--color-field-rule); border-radius: var(--radius-field); outline: var(--rule-focus) solid var(--color-clear); outline-offset: var(--rule-field-focus-offset); background: var(--color-surface); color: var(--color-ink); padding: var(--space-sm); line-height: var(--text-leading); }
+input:focus-visible, textarea:focus-visible, input:active:not(:disabled), textarea:active:not(:disabled) { outline-color: var(--color-focus); outline-offset: var(--rule-field-focus-offset); }
+textarea { min-height: 6rem; resize: vertical; }
+input::placeholder, textarea::placeholder { color: var(--color-muted); opacity: 1; }
+input[readonly], textarea[readonly] { background: var(--color-soft); color: var(--color-muted); }
+input:disabled, textarea:disabled { background: var(--color-soft); color: var(--color-muted); opacity: 0.55; cursor: not-allowed; }
+[aria-invalid="true"] { border-color: var(--color-error); }
+.field-hint, .muted { color: var(--color-muted); font-size: var(--text-sm); }
+.field-hint { min-height: 1lh; }
+.field-hint.invalid, .error { color: var(--color-error); }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs); min-height: var(--control-height); max-width: 100%; padding: var(--space-xs) var(--space-lg); border: var(--rule-width) solid var(--color-clear); border-radius: var(--radius-button); font-weight: var(--font-weight-label); white-space: nowrap; transition: transform var(--dur-micro) var(--ease-out); }
+.primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.primary:focus-visible { box-shadow: inset 0 0 0 var(--rule-focus) var(--color-paper); }
+.secondary { background: var(--color-clear); color: var(--color-ink); border-color: var(--color-field-rule); }
+.button:active:not(:disabled) { transform: scale(0.98); }
+.button:disabled { background: var(--color-soft); color: var(--color-muted); opacity: 0.55; cursor: not-allowed; }
+#track-status { margin-top: var(--space-sm); }
+.conversation { display: flex; flex-direction: column; gap: var(--space-lg); }
+.conversation-header { display: flex; flex-direction: column; gap: var(--space-xs); }
+.session-status { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
+.error { padding-block: var(--space-xs); }
+.empty-state { display: grid; align-content: center; justify-items: start; gap: var(--space-md); padding-block: var(--space-xl); min-height: 18rem; }
+.empty-mark { color: var(--color-accent); font-size: var(--text-display); line-height: var(--text-heading-leading); }
+.empty-state p { max-width: 45ch; color: var(--color-muted); }
+.messages { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-lg); }
+.message { display: grid; gap: var(--space-sm); min-width: 0; }
+.message-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-xs); }
+.message-author { font-size: var(--text-sm); font-weight: var(--font-weight-label); }
+.message-content { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 70ch; }
+.message.user { padding: var(--space-md) var(--space-lg); background: var(--color-soft); color: var(--color-ink); border-radius: var(--radius-field); }
+.message.assistant { padding-block: var(--space-xs) var(--space-lg); }
+.message.new-answer { animation: answer-in var(--dur-short) var(--ease-out); }
+.copy { padding-inline: var(--space-sm); font-size: var(--text-sm); border-color: var(--color-clear); }
+.copy[data-state="copied"] { color: var(--color-accent); }
+.copy[data-state="error"] { color: var(--color-error); }
+.composer { padding-top: var(--space-lg); border-top: var(--rule-width) solid var(--color-rule); }
+.composer-actions { display: flex; align-items: flex-start; flex-direction: column; gap: var(--space-sm); }
+.stats { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-lg); margin: 0; padding-top: var(--space-md); border-top: var(--rule-width) solid var(--color-rule); font-size: var(--text-sm); }
+.stats div { min-width: 0; }
+dt { color: var(--color-muted); }
+dd { margin: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.page-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); padding-block: var(--space-md) var(--space-lg); border-top: var(--rule-width) solid var(--color-rule); color: var(--color-muted); font-size: var(--text-sm); }
+dialog { position: fixed; inset: 0; margin: auto; width: min(30rem, calc(100% - 2rem)); max-height: 80dvh; padding: var(--space-lg); border: var(--rule-width) solid var(--color-rule); border-radius: var(--radius-dialog); background: var(--color-paper); color: var(--color-ink); }
+dialog::backdrop { background: var(--color-backdrop); }
+dialog p { margin-block: var(--space-md) var(--space-lg); }
+.dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: var(--space-sm); }
+.skip-link { position: absolute; transform: translateY(-200%); padding: var(--space-sm); background: var(--color-ink); color: var(--color-paper); }
+.skip-link:focus { transform: none; }
+@media (hover: hover) {
+  .primary:hover:not(:disabled) { background: var(--color-accent-hover); color: var(--color-accent-ink); }
+  .secondary:hover:not(:disabled) { background: var(--color-soft); color: var(--color-ink); }
+  input:hover:not(:disabled):not([readonly]), textarea:hover:not(:disabled):not([readonly]) { background: var(--color-paper); color: var(--color-ink); }
+}
+@media (min-width: 40rem) {
+  .conversation-header { flex-direction: row; justify-content: space-between; align-items: baseline; }
+  .composer-actions { flex-direction: row; align-items: center; justify-content: space-between; }
+  .composer-actions p { max-width: 45ch; }
+}
+@media (min-width: 60rem) {
+  .page-header { padding-block: var(--space-xl) var(--space-2xl); }
+  .workspace { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.65fr); gap: var(--space-2xl); min-height: 36rem; }
+  .track-panel { align-self: start; }
+  .conversation { padding-inline-start: var(--space-lg); }
+}
+@keyframes answer-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:active:not(:disabled) { transform: none; }
+  .message.new-answer { animation-duration: var(--dur-reduced); }
+}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Музыкальные питчи и диалог с моделью.">
+  <title>Pitch Agent — диалог о треке</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conversation">К диалогу</a>
+  <div class="page">
+    <header class="page-header">
+      <h1>Pitch Agent<span class="brand-dot" aria-hidden="true">.</span></h1>
+      <button id="reset" class="button secondary" type="button" disabled>Новый диалог</button>
+    </header>
+    <main class="workspace">
+      <section class="track-panel" aria-labelledby="track-heading">
+        <h2 id="track-heading">О чём трек?</h2>
+        <p class="intro">Добавь название и пару деталей. Дальше можно обсуждать и дорабатывать питч.</p>
+        <form id="track-form" novalidate>
+          <div class="field">
+            <label for="track-name">Артист и название</label>
+            <input id="track-name" name="name" maxlength="300" required aria-required="true" aria-describedby="name-hint" placeholder="Astin Ray, VAVA — TAKIPARIO" disabled>
+            <p id="name-hint" class="field-hint">Как указано в релизе.</p>
+          </div>
+          <div class="field">
+            <label for="description">Описание трека</label>
+            <textarea id="description" name="description" rows="5" maxlength="8000" required aria-required="true" aria-describedby="description-hint" placeholder="Агрессивный фонк с женским вокалом" disabled></textarea>
+            <p id="description-hint" class="field-hint">Жанр, настроение, вокал — только известные факты.</p>
+          </div>
+          <button id="generate" class="button primary" type="submit" disabled>Написать питч</button>
+          <p id="track-status" class="field-hint">Первый вариант будет на английском.</p>
+        </form>
+      </section>
+      <section id="conversation" class="conversation" aria-labelledby="conversation-heading" tabindex="-1">
+        <div class="conversation-header">
+          <h2 id="conversation-heading">Диалог</h2>
+          <span class="muted">Питч и уточнения</span>
+        </div>
+        <div class="session-status">
+          <p id="status" role="status" aria-live="polite" aria-atomic="true">Загружаю диалог…</p>
+          <button id="sync" class="button secondary" type="button" hidden>Проверить связь</button>
+        </div>
+        <p id="error" class="error" role="alert" hidden></p>
+        <div id="empty" class="empty-state">
+          <span class="empty-mark" aria-hidden="true">↗</span>
+          <h3>Начнём с первого питча</h3>
+          <p>Заполни данные трека. Здесь появится ответ, а ниже — поле для продолжения разговора.</p>
+        </div>
+        <ol id="messages" class="messages" aria-label="Сообщения диалога"></ol>
+        <form id="message-form" class="composer" novalidate hidden>
+          <div class="field">
+            <label for="message">Твоё сообщение</label>
+            <textarea id="message" name="message" rows="3" maxlength="4000" required aria-required="true" aria-describedby="message-hint" placeholder="Сделай короче и добавь больше энергии"></textarea>
+            <p id="message-hint" class="field-hint">Можно писать по-русски. Ctrl + Enter — отправить.</p>
+          </div>
+          <div class="composer-actions">
+            <p class="muted">Предыдущие сообщения остаются в контексте.</p>
+            <button id="send" class="button primary" type="submit">Отправить</button>
+          </div>
+        </form>
+        <dl class="stats" aria-label="Статистика диалога">
+          <div><dt>Модель</dt><dd id="model">—</dd></div>
+          <div><dt>Сообщения</dt><dd id="message-count">—</dd></div>
+          <div><dt>Токены</dt><dd id="token-count">—</dd></div>
+        </dl>
+      </section>
+    </main>
+    <footer class="page-footer"><p>AI Advent Challenge · Week 2</p><p>Один трек — один диалог.</p></footer>
+  </div>
+  <dialog id="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-description">
+    <h2 id="reset-title">Начать новый диалог?</h2>
+    <p id="reset-description">Текущая переписка и статистика будут удалены. Скопируй нужные ответы перед началом.</p>
+    <div class="dialog-actions">
+      <button id="cancel-reset" class="button secondary" type="button" autofocus>Остаться</button>
+      <button id="confirm-reset" class="button primary" type="button">Начать заново</button>
+    </div>
+  </dialog>
+</body>
+</html>

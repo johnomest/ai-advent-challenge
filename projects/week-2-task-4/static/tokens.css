@@ -1,0 +1,173 @@
+/* Hallmark · macrostructure: Workbench · theme: custom · tone: calm technical · anchor hue: amber
+ * vibe: "calm technical dark workspace" · paper: oklch(22.689691% 0.02698411 265.167954) · accent: oklch(83.939005% 0.15266453 81.618809)
+ * display/body: TT Wellingtons · axes: dark / geometric-sans / chromatic-amber
+ * genre: modern-minimal · nav: product sidebar (N3-inspired) · footer: none · enrichment: none · studied: no · context: user-provided · v1.1.0
+ */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 */
+@font-face {
+  font-family: "TT Wellingtons";
+  src: url("/fonts/tt-wellingtons-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Wellingtons";
+  src: url("/fonts/tt-wellingtons-demibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Wellingtons";
+  src: url("/fonts/tt-wellingtons-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  /* Canonical interface palette. Source hex values stay documented beside exact OKLCH conversions. */
+  --palette-dark-50: oklch(37.1163% 0.02006 266.016); /* #3B404B */
+  --palette-dark-100: oklch(36.3539% 0.02016 266.005); /* #393E49 */
+  --palette-dark-200: oklch(35.5877% 0.02028 265.993); /* #373C47 */
+  --palette-dark-300: oklch(33.6993% 0.02224 267.371); /* #323743 */
+  --palette-dark-400: oklch(32.9187% 0.02238 267.352); /* #303541 */
+  --palette-dark-500: oklch(30.9474% 0.02274 267.296); /* #2B303C */
+  --palette-dark-600: oklch(30.1505% 0.02290 267.271); /* #292E3A */
+  --palette-dark-700: oklch(29.2583% 0.02356 264.112); /* #262C38 */
+  --palette-dark-800: oklch(27.3711% 0.02526 268.321); /* #222734 */
+  --palette-dark-900: oklch(22.6897% 0.02698 265.168); /* #161C29 */
+
+  --palette-neutral-50: oklch(98.7609% 0.00170 247.839); /* #FAFBFC */
+  --palette-neutral-100: oklch(96.1238% 0.00414 271.369); /* #F1F2F5 */
+  --palette-neutral-200: oklch(92.4080% 0.00750 260.732); /* #E3E6EB */
+  --palette-neutral-300: oklch(88.4568% 0.01179 264.506); /* #D5D9E1 */
+  --palette-neutral-400: oklch(84.4638% 0.01622 266.262); /* #C7CCD7 */
+  --palette-neutral-500: oklch(73.7022% 0.02926 265.385); /* #A1AABD */
+  --palette-neutral-600: oklch(58.5618% 0.04767 264.736); /* #6E7C99 */
+  --palette-neutral-700: oklch(43.8243% 0.03706 264.951); /* #485267 */
+  --palette-neutral-800: oklch(28.0368% 0.01983 264.182); /* #242933 */
+  --palette-neutral-900: oklch(19.4812% 0.01116 260.657); /* #12151A */
+
+  --palette-primary-50: oklch(99.1447% 0.00976 87.470); /* #FFFCF5 */
+  --palette-primary-100: oklch(97.2916% 0.02718 83.538); /* #FFF5E2 */
+  --palette-primary-200: oklch(94.7960% 0.05313 85.642); /* #FEECC6 */
+  --palette-primary-300: oklch(92.2487% 0.07905 84.713); /* #FEE2A9 */
+  --palette-primary-400: oklch(89.9020% 0.10365 85.350); /* #FDD98C */
+  --palette-primary-500: oklch(83.9390% 0.15266 81.619); /* #FCBF40 */
+  --palette-primary-600: oklch(75.6185% 0.15859 75.422); /* #E99F04 */
+  --palette-primary-700: oklch(56.2719% 0.11755 76.163); /* #9C6A02 */
+  --palette-primary-800: oklch(34.9090% 0.07176 79.124); /* #4E3501 */
+  --palette-primary-900: oklch(22.8355% 0.04537 82.009); /* #271A01 */
+
+  --palette-secondary-50: oklch(98.0808% 0.00906 258.335); /* #F5F9FF */
+  --palette-secondary-100: oklch(93.9284% 0.02876 266.368); /* #E2EBFF */
+  --palette-secondary-200: oklch(88.1092% 0.05617 265.213); /* #C6D8FE */
+  --palette-secondary-300: oklch(82.0983% 0.08735 265.146); /* #A9C4FE */
+  --palette-secondary-400: oklch(76.3395% 0.11711 263.957); /* #8CB1FD */
+  --palette-secondary-500: oklch(61.8782% 0.20014 262.713); /* #407DFC */
+  --palette-secondary-600: oklch(50.0321% 0.24096 262.761); /* #044EE9 */
+  --palette-secondary-700: oklch(37.6206% 0.17547 262.417); /* #02349C */
+  --palette-secondary-800: oklch(24.0119% 0.10121 261.231); /* #011A4E */
+  --palette-secondary-900: oklch(16.5991% 0.05813 259.033); /* #010D27 */
+
+  --palette-success-50: oklch(98.4904% 0.01010 145.498); /* #F6FCF6 */
+  --palette-success-100: oklch(95.2728% 0.02748 150.420); /* #E3F5E6 */
+  --palette-success-200: oklch(90.7986% 0.05795 148.916); /* #C7ECCC */
+  --palette-success-300: oklch(86.2404% 0.08585 148.719); /* #ABE2B3 */
+  --palette-success-400: oklch(82.0166% 0.11592 147.784); /* #8FD999 */
+  --palette-success-500: oklch(71.3123% 0.18206 145.591); /* #45BF55 */
+  --palette-success-600: oklch(58.1735% 0.14943 145.470); /* #32913E */
+  --palette-success-700: oklch(43.7645% 0.10819 145.948); /* #21612A */
+  --palette-success-800: oklch(27.7492% 0.06089 146.288); /* #113015 */
+  --palette-success-900: oklch(18.9911% 0.03560 146.945); /* #08180A */
+
+  --palette-warning-50: oklch(98.5633% 0.00835 56.317); /* #FFF9F5 */
+  --palette-warning-100: oklch(95.6372% 0.02448 57.675); /* #FEEDE1 */
+  --palette-warning-200: oklch(91.4652% 0.04875 60.134); /* #FCDCC3 */
+  --palette-warning-300: oklch(87.2971% 0.07425 58.644); /* #FBCAA5 */
+  --palette-warning-400: oklch(83.3746% 0.09801 58.344); /* #F9B988 */
+  --palette-warning-500: oklch(73.6497% 0.15933 54.013); /* #F58A38 */
+  --palette-warning-600: oklch(63.1788% 0.16749 48.483); /* #D7630B */
+  --palette-warning-700: oklch(47.1313% 0.12138 49.745); /* #8F4207 */
+  --palette-warning-800: oklch(29.7498% 0.07118 52.325); /* #482104 */
+  --palette-warning-900: oklch(20.1349% 0.04233 60.008); /* #241102 */
+
+  --palette-error-50: oklch(97.9332% 0.00858 17.303); /* #FEF6F6 */
+  --palette-error-100: oklch(93.7436% 0.02527 17.612); /* #FBE4E4 */
+  --palette-error-200: oklch(87.4230% 0.05356 15.357); /* #F7C8CA */
+  --palette-error-300: oklch(81.4228% 0.08245 17.135); /* #F3ADAF */
+  --palette-error-400: oklch(75.5052% 0.11401 18.065); /* #EF9194 */
+  --palette-error-500: oklch(62.5565% 0.19334 23.026); /* #E5484D */
+  --palette-error-600: oklch(53.0338% 0.20161 26.679); /* #C61C21 */
+  --palette-error-700: oklch(39.6457% 0.14678 26.202); /* #841316 */
+  --palette-error-800: oklch(25.0172% 0.08589 24.386); /* #42090B */
+  --palette-error-900: oklch(17.0563% 0.04987 21.414); /* #210506 */
+
+  --palette-shade-0: oklch(100% 0 0); /* #FFFFFF */
+  --palette-shade-100: oklch(0% 0 0); /* #000000 */
+
+  --color-paper: var(--palette-dark-900);
+  --color-surface: var(--palette-dark-800);
+  --color-soft: var(--palette-dark-600);
+  --color-rule: var(--palette-dark-50);
+  --color-field-rule: var(--palette-neutral-600);
+  --color-ink: var(--palette-neutral-50);
+  --color-muted: var(--palette-neutral-500);
+  --color-secondary: var(--palette-neutral-200);
+  --color-accent: var(--palette-primary-500);
+  --color-accent-hover: var(--palette-primary-400);
+  --color-accent-pressed: var(--palette-primary-600);
+  --color-accent-ink: var(--palette-dark-900);
+  --color-focus: var(--palette-secondary-400);
+  --color-error: var(--palette-error-300);
+  --color-error-surface: var(--palette-error-900);
+  --color-error-rule: var(--palette-error-500);
+  --color-clear: oklch(22.689691% 0.02698411 265.167954 / 0);
+  --color-backdrop: oklch(22.689691% 0.02698411 265.167954 / 0.8);
+  --font-display: "TT Wellingtons", "Segoe UI", sans-serif;
+  --font-body: "TT Wellingtons", "Segoe UI", sans-serif;
+  --font-weight-body: 400;
+  --font-weight-label: 600;
+  --font-weight-heading: 700;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-display: clamp(1.75rem, 3vw, 2.25rem);
+  --text-leading: 1.6;
+  --text-heading-leading: 1.2;
+  --text-tracking: -0.04em;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-page: clamp(1rem, 3vw, 2.5rem);
+  --space-empty: clamp(1rem, 8dvh, 5rem);
+  --radius-field: 1rem;
+  --radius-button: 0.5rem;
+  --radius-dialog: 1rem;
+  --radius-circle: 50%;
+  --rule-width: 1px;
+  --rule-focus: 2px;
+  --rule-focus-offset: 3px;
+  --control-height: 2.75rem;
+  --sidebar-width: 17rem;
+  --conversation-width: 48rem;
+  --composer-max-height: 10rem;
+  --icon-size: 1.25rem;
+  --z-raised: 10;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 200ms;
+  --dur-reduced: 100ms;
+}

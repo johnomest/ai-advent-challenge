@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="GOOST CHAT — инварианты и проверка решений.">
+  <title>GOOST CHAT</title>
+  <link rel="icon" href="/goost-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/week.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body data-day="14">
+  <a class="skip-link" href="#message">К сообщению</a>
+  <div class="app-shell">
+    <div id="sidebar-host" class="sidebar-host">
+      <aside id="sidebar" class="sidebar" aria-label="Чаты">
+        <div class="sidebar-heading">
+          <img class="brand-typo" src="/goost-typo.svg" alt="GOOST">
+          <button id="close-drawer" class="icon-button mobile-only" type="button" aria-label="Закрыть список чатов">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+          </button>
+        </div>
+        <button id="new-chat" class="button primary new-chat" type="button" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          Новый чат
+        </button>
+        <div class="list-heading"><h2 id="chats-heading">Твои чаты</h2><span id="chat-count" class="muted">—</span></div>
+        <nav class="chat-navigation" aria-labelledby="chats-heading">
+          <p id="list-empty" class="list-empty">Загружаю чаты…</p>
+          <ul id="chat-list" class="chat-list"></ul>
+        </nav>
+        <div class="sidebar-note"><span class="storage-dot" aria-hidden="true"></span><p>История сохраняется<br><span class="muted">на этом компьютере</span></p></div>
+      </aside>
+    </div>
+    <main id="workspace" class="workspace" aria-labelledby="chat-title">
+      <header class="chat-header">
+        <button id="open-drawer" class="icon-button mobile-only" type="button" aria-label="Открыть список чатов" aria-haspopup="dialog" aria-controls="drawer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM9 5v14"/></svg>
+        </button>
+        <img class="header-logo mobile-only" src="/goost-logo.svg" alt="" aria-hidden="true">
+        <div class="chat-heading"><h1 id="chat-title">GOOST CHAT</h1></div>
+        <button id="open-inspector" class="icon-button inspector-toggle" type="button" aria-label="Открыть настройки и метрики" aria-haspopup="dialog" aria-controls="inspector-drawer" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM15 5v14"/></svg>
+        </button>
+      </header>
+      <div id="transcript" class="transcript" tabindex="0" aria-label="Переписка">
+        <div class="conversation-width">
+          <div id="empty" class="empty-state">
+            <img class="empty-logo" src="/goost-logo.svg" alt="" aria-hidden="true">
+            <h2 id="empty-title">Начнём с твоего вопроса</h2>
+            <p id="empty-description">Обсудим идею, разберём задачу или напишем текст. Каждый чат помнит свой разговор.</p>
+            <button id="empty-action" class="button secondary" type="button">Написать сообщение</button>
+          </div>
+          <ol id="messages" class="messages" aria-label="Сообщения диалога"></ol>
+          <p id="reply-pending" class="reply-pending" role="status" hidden>GOOST готовит ответ…</p>
+          <div id="transcript-spacer" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="composer-area">
+        <div class="conversation-width">
+          <p id="error" class="error" role="alert" hidden></p>
+          <p id="task-paused-hint" class="field-hint" role="status" hidden>Задача на паузе. Нажми «Продолжить задачу» в панели состояния.</p>
+          <form id="message-form" class="composer" novalidate>
+            <label for="message">Сообщение</label>
+            <textarea id="message" name="message" rows="2" maxlength="4000" required aria-required="true" aria-describedby="message-hint" placeholder="О чём поговорим?" disabled></textarea>
+            <div class="composer-bottom">
+              <p id="message-hint" class="field-hint">Enter — отправить · Shift + Enter — новая строка</p>
+              <button id="send" class="icon-button primary send" type="submit" aria-label="Отправить сообщение" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+              </button>
+            </div>
+          </form>
+          <p class="composer-note">GOOST может ошибаться. Проверяй важные ответы.</p>
+        </div>
+      </div>
+    </main>
+    <div id="inspector-host" class="inspector-host">
+      <aside id="inspector" class="inspector" aria-labelledby="inspector-title">
+        <header class="inspector-heading">
+          <h2 id="inspector-title">Настройки и метрики</h2>
+          <button id="close-inspector" class="icon-button inspector-toggle" type="button" aria-label="Закрыть настройки и метрики">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+          </button>
+        </header>
+        <div class="inspector-scroll">
+          <div class="connection-status">
+            <p id="model" class="model">Подключение…</p>
+            <button id="sync" class="icon-button" type="button" aria-label="Обновить чаты и проверить связь" title="Обновить чаты и проверить связь">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 11-1l3 6M4 12l3 6a7 7 0 0 0 11-1"/></svg>
+            </button>
+          </div>
+          <div class="session-status">
+            <p id="status" role="status" aria-live="polite" aria-atomic="true">Загружаю чаты…</p>
+            <p id="stats" class="stats" aria-label="Статистика чата"></p>
+          </div>
+          <p class="week-label">День 14 · Инварианты задачи</p>
+          <div id="week-panels"></div>
+          <p id="week-status" class="muted" role="status" aria-live="polite"></p>
+          <p id="week-error" class="error" role="alert" hidden></p>
+          <details class="memory-details">
+          <summary>Стратегия контекста · день 10</summary>
+          <section id="memory-panel" class="memory-panel" aria-label="Память чата" hidden>
+            <form id="strategy-form" class="memory-controls">
+              <label>Стратегия памяти<select id="strategy" aria-describedby="strategy-hint"><option value="sliding_window">Скользящее окно</option><option value="sticky_facts">Ключевые факты</option><option value="branching">Ветки диалога</option></select></label>
+              <label>Последних ходов<input id="window-turns" type="number" min="1" max="20" value="3" required></label>
+              <button id="save-strategy" class="button secondary" type="submit">Применить</button>
+            </form>
+            <p id="strategy-hint" class="muted">Стратегию можно менять до первого сообщения. Ход — вопрос и ответ.</p>
+            <p id="branch-lineage" class="muted" hidden></p>
+            <form id="branch-form" class="memory-controls" hidden>
+              <label>Точка ветвления<select id="branch-checkpoint" aria-describedby="branch-hint"></select></label>
+              <button id="create-branches" class="button secondary" type="submit">Создать ветки A и B</button>
+              <p id="branch-hint" class="muted">Выбери завершённый ход для двух независимых продолжений.</p>
+            </form>
+            <details class="memory-details"><summary>Что получит модель</summary><p id="memory-context" class="muted"></p><ul id="memory-facts" class="memory-facts"></ul></details>
+          </section>
+          </details>
+          <section id="token-preview" class="token-preview" aria-label="Контекст следующего запроса" hidden>
+            <h3>Следующий запрос</h3>
+            <div class="token-summary"><span>Запрос <span id="request-tokens">—</span></span><span>История <span id="history-tokens">—</span></span><span>Последний ответ <span id="answer-tokens">—</span></span></div>
+            <div class="context-budget"><label for="context-meter" id="context-budget">Контекст: —</label><meter id="context-meter" min="0" max="1" value="0" aria-describedby="preview-status"></meter></div>
+            <p id="preview-status" class="muted" role="status" aria-live="polite"></p>
+          </section>
+          <details id="token-details" class="token-details" hidden>
+            <summary>Токены и стоимость</summary>
+            <p class="muted">≈ — локальная оценка. API — данные провайдера. В запрос попадает контекст выбранной стратегии.</p>
+            <dl id="context-fields" class="context-fields"></dl>
+            <p id="estimator-note" class="muted"></p>
+            <div class="turn-table-scroll" tabindex="0" role="region" aria-label="Токены и стоимость по ходам">
+              <table class="turn-table">
+                <caption>Успешные ходы · стоимость в USD</caption>
+                <thead><tr><th scope="col">Ход</th><th scope="col">Запрос ≈</th><th scope="col">История ≈</th><th scope="col">Вход API</th><th scope="col">Ответ ≈</th><th scope="col">Выход API</th><th scope="col">Стоимость</th></tr></thead>
+                <tbody id="turn-metrics"></tbody>
+              </table>
+            </div>
+            <p id="metrics-empty" class="muted">Пока нет данных о ходах. Отправь сообщение.</p>
+            <p class="muted">Стоимость рассчитана по usage API. Диапазон учитывает тарифы off-peak и peak; точный момент биллинга здесь не определяется. «—» — нет данных.</p>
+          </details>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <dialog id="drawer" class="drawer" aria-label="Список чатов"></dialog>
+  <dialog id="inspector-drawer" class="drawer inspector-drawer" aria-labelledby="inspector-title"></dialog>
+  <dialog id="create-dialog" aria-labelledby="create-title">
+    <form id="create-form">
+      <h2 id="create-title">Новый чат</h2>
+      <label class="field">Стратегия памяти<select id="new-strategy"><option value="sliding_window">Скользящее окно</option><option value="sticky_facts">Ключевые факты</option><option value="branching">Ветки диалога</option></select></label>
+      <label class="field">Последних ходов<input id="new-window-turns" type="number" min="1" max="20" value="3" required></label>
+      <p class="muted">Ход — вопрос и ответ. Стратегия закрепляется после первого сообщения.</p>
+      <div class="dialog-actions"><button id="cancel-create" class="button secondary" type="button">Отмена</button><button id="confirm-create" class="button primary" type="submit">Создать чат</button></div>
+    </form>
+  </dialog>
+  <dialog id="manage-dialog" aria-labelledby="manage-title">
+    <form id="rename-form" novalidate>
+      <h2 id="manage-title">Название чата</h2>
+      <div class="field">
+        <label for="chat-name">Название</label>
+        <input id="chat-name" name="title" maxlength="100" required aria-required="true" aria-describedby="name-hint">
+        <p id="name-hint" class="field-hint">От 1 до 100 символов.</p>
+      </div>
+      <div class="dialog-actions">
+        <button id="delete-chat" class="button secondary delete-action" type="button">Удалить</button>
+        <button id="cancel-manage" class="button secondary" type="button">Отмена</button>
+        <button id="save-name" class="button primary" type="submit">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-description">
+    <h2 id="delete-title">Удалить чат?</h2>
+    <p id="delete-description" class="dialog-description"></p>
+    <div class="dialog-actions">
+      <button id="cancel-delete" class="button secondary" type="button" autofocus>Отмена</button>
+      <button id="confirm-delete" class="button primary" type="button">Удалить чат</button>
+    </div>
+  </dialog>
+</body>
+</html>

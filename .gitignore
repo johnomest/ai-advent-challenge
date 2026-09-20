@@ -1,6 +1,11 @@
 .env
+projects/**/data/
 .idea/
 chat/
 lessons/
 summary/
+projects/week-2-task-2/data/
+projects/week-2-task-3/data/
+projects/week-2-task-4/data/
+projects/week-2-task-5/data/
 __pycache__/

@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Какие требования предъявляются к аудиофайлу релиза?",
+    "expected": "WAV, stereo, 16 или 24 bit; файл не должен быть перекодирован из lossy-формата",
+    "source": "managers/knowledge-base.md#Материалы от артиста"
+  },
+  {
+    "question": "Какую ссылку отправить артисту для загрузки релиза?",
+    "expected": "https://label.goostmusic.com/release",
+    "source": "managers/knowledge-base.md#Быстрый доступ"
+  },
+  {
+    "question": "Какую ссылку отправить артисту для обращения в поддержку?",
+    "expected": "https://label.goostmusic.com/support",
+    "source": "managers/knowledge-base.md#Быстрый доступ"
+  },
+  {
+    "question": "Что проверить перед загрузкой релиза в Believe?",
+    "expected": "Название, дату, менеджера, notes, версии, авторов, жанр, язык, explicit и таймкод",
+    "source": "managers/knowledge-base.md#Проверка перед загрузкой в Believe"
+  },
+  {
+    "question": "Когда удалять старую поставку при переносе каталога?",
+    "expected": "Только после повторной доставки и проверки привязки статистики на площадках",
+    "source": "managers/knowledge-base.md#Перенос каталога"
+  },
+  {
+    "question": "Какими командами бот генерирует и отправляет договор и акт?",
+    "expected": "/generate_contract, /generate_act, /send_contract и /send_act",
+    "source": "managers/knowledge-base.md#Документы и бот"
+  },
+  {
+    "question": "Можно ли запускать маркетинговые расходы без согласия артиста?",
+    "expected": "Нет, необходимо явное согласие артиста",
+    "source": "managers/knowledge-base.md#Маркетинг"
+  },
+  {
+    "question": "Какой royalty split указан для тестового релиза?",
+    "expected": "70/30 в пользу артиста; условие требует сверки с актуальным договором",
+    "source": "managers/knowledge-base.md#Тестовый релиз"
+  },
+  {
+    "question": "В чём конфликт условий реферальной программы?",
+    "expected": "RU и EN версии расходятся по второму порогу: Яндекс Музыка 100k против YouTube Music 1M",
+    "source": "managers/knowledge-base.md#Реферальная программа"
+  },
+  {
+    "question": "Через какие сервисы ведётся publishing?",
+    "expected": "Sentric Music и Medialand",
+    "source": "managers/knowledge-base.md#Publishing"
+  }
+]

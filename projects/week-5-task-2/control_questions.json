@@ -1,52 +1,12 @@
 [
-  {
-    "question": "Какие требования предъявляются к аудиофайлу релиза?",
-    "expected": "WAV, stereo, 16 или 24 bit; файл не должен быть перекодирован из lossy-формата",
-    "source": "managers/knowledge-base.md#Материалы от артиста"
-  },
-  {
-    "question": "Какую ссылку отправить артисту для загрузки релиза?",
-    "expected": "https://label.goostmusic.com/release",
-    "source": "managers/knowledge-base.md#Быстрый доступ"
-  },
-  {
-    "question": "Какую ссылку отправить артисту для обращения в поддержку?",
-    "expected": "https://label.goostmusic.com/support",
-    "source": "managers/knowledge-base.md#Быстрый доступ"
-  },
-  {
-    "question": "Что проверить перед загрузкой релиза в Believe?",
-    "expected": "Название, дату, менеджера, notes, версии, авторов, жанр, язык, explicit и таймкод",
-    "source": "managers/knowledge-base.md#Проверка перед загрузкой в Believe"
-  },
-  {
-    "question": "Когда удалять старую поставку при переносе каталога?",
-    "expected": "Только после повторной доставки и проверки привязки статистики на площадках",
-    "source": "managers/knowledge-base.md#Перенос каталога"
-  },
-  {
-    "question": "Какими командами бот генерирует и отправляет договор и акт?",
-    "expected": "/generate_contract, /generate_act, /send_contract и /send_act",
-    "source": "managers/knowledge-base.md#Документы и бот"
-  },
-  {
-    "question": "Можно ли запускать маркетинговые расходы без согласия артиста?",
-    "expected": "Нет, необходимо явное согласие артиста",
-    "source": "managers/knowledge-base.md#Маркетинг"
-  },
-  {
-    "question": "Какой royalty split указан для тестового релиза?",
-    "expected": "70/30 в пользу артиста; условие требует сверки с актуальным договором",
-    "source": "managers/knowledge-base.md#Тестовый релиз"
-  },
-  {
-    "question": "В чём конфликт условий реферальной программы?",
-    "expected": "RU и EN версии расходятся по второму порогу: Яндекс Музыка 100k против YouTube Music 1M",
-    "source": "managers/knowledge-base.md#Реферальная программа"
-  },
-  {
-    "question": "Через какие сервисы ведётся publishing?",
-    "expected": "Sentric Music и Medialand",
-    "source": "managers/knowledge-base.md#Publishing"
-  }
+  {"question":"Нужен ли диплом, чтобы устроиться в Framestore?","source":"How to Get Hired.pdf","pages":[13],"terms":["visas","degree"],"expected":"Framestore оценивает demo reel, не проверяет образование, но диплом может быть важен для рабочей визы за рубежом."},
+  {"question":"Какие соцсети Framestore проверяет перед наймом?","source":"How to Get Hired.pdf","pages":[13],"terms":["LinkedIn"],"expected":"LinkedIn проверяют всегда; другие соцсети редко, если они связаны с профилем."},
+  {"question":"Как новичку расти в Framestore: вопросы, наставник и заметки?","source":"How to Get Hired.pdf","pages":[13],"terms":["notes","mentor"],"expected":"Задавать вопросы, использовать помощь наставника, записывать ответы и продолжать учиться."},
+  {"question":"Какие работы и навыки Framestore ищет при просмотре портфолио?","source":"How to Get Hired.pdf","pages":[13],"terms":["photo-real","originality"],"expected":"Фундаментальные навыки специализации, одна-две сильные области, photoreal и собственная оригинальность в учебных работах."},
+  {"question":"Что может испортить шансы кандидата на собеседовании в Framestore?","source":"How to Get Hired.pdf","pages":[13],"terms":["communicator","team"],"expected":"Недостаточная командность, коммуникация и неспособность замечать, что улучшить в собственной работе."},
+  {"question":"Нужен ли студии IV отдельный resume или достаточно portfolio?","source":"How to Get Hired.pdf","pages":[24],"terms":["portfolio","resumes"],"expected":"IV достаточно портфолио; резюме допустимо, но не обязательно."},
+  {"question":"Как студия IV относится к художественному образованию кандидата?","source":"How to Get Hired.pdf","pages":[24],"terms":["schooling","body of work"],"expected":"Art school может помочь работам, но при найме IV оценивает сами работы, а не образование."},
+  {"question":"Какой совет даёт книга о повторном письме раз в квартал с новыми работами?","source":"How to Get Hired.pdf","pages":[32],"terms":["quarter","new work"],"expected":"Если сейчас нет подходящего места, можно писать раз в квартал с новыми работами; совет конкретного интервью, не универсальное правило всех студий."},
+  {"question":"Что делать, если студия молчит, и как связаться с её художником?","source":"How to Get Hired.pdf","pages":[32],"terms":["artist","guidance"],"expected":"Изучить студию, обратиться к художнику напрямую, отметить его работу и попросить совета; рекомендация word of mouth."},
+  {"question":"Что студия IV советует кандидату, который не получил ответа?","source":"How to Get Hired.pdf","pages":[24],"terms":["following up","portfolio"],"expected":"Несколько follow-up допустимы: студия бывает занята. Не сдаваться и продолжать развивать портфолио."}
 ]

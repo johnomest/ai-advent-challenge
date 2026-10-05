@@ -1,95 +1,89 @@
-# День 21 — индексация базы знаний GOOST
+# День 21 — локальная индексация PDF
 
-Подробный [сценарий записи и чеклист](VIDEO-SCENARIO.md).
+Корпус: **How to Get Hired.pdf**. 38 страниц, 37 с текстовым слоем, 8291 слово.
+Обложка без текстового слоя не индексируется. OCR не выполняется.
+Это единственная текущая реализация пятой недели; следующие дни начинаем с нуля.
 
-Проект готовит локальные RAG-индексы из Markdown-документации `goost-tools`. Содержимое файлов не отправляется в облако: embeddings строит локальный Ollama.
+## Что реализовано
 
-## Что изучаем
+PDF → извлечение текста с учётом двух колонок → Markdown-файлы страниц →
+два способа chunking → локальные embeddings → JSON-индексы.
 
-- подготовку документов для RAG;
-- fixed-size и structural chunking;
-- локальные multilingual embeddings;
-- сохранение индекса и метаданных;
-- влияние стратегии чанкинга на результат.
+- Fixed-size: окна 180 слов, overlap 30; последнее окно может быть коротким.
+- Structural: структура по файлам страниц. Короткая страница остаётся целой,
+  длинная делится с тем же лимитом. Семантические заголовки PDF не распознаются.
+- Обе стратегии не пересекают границы файлов страниц.
+- Ollama `embeddinggemma`: реальные embeddings размерности 768.
+- Метаданные: `source`, `title`, `section`, `chunk_id`, `strategy`, `page`.
+- SHA-256 исходника сохраняется в индексе и отчёте.
+- Страница — физический номер в PDF, не печатная нумерация книги.
+- Проверяются уникальность ID, непустые тексты, корректные страницы,
+  размерность и конечность ненулевых vectors, повторное чтение JSON.
 
-## Данные
-
-По умолчанию читается соседний репозиторий:
-
-```text
-D:\Work\Projects\goost-tools\documentation
-```
-
-Индексируются только файлы `*.md`. Telegram JSON, `.env`, secrets, код и логи не читаются. Для каждого чанка сохраняются:
-
-- `source`;
-- `title`;
-- `section`;
-- `chunk_id`;
-- `strategy`;
-- текст и embedding.
-
-## Подготовка Ollama
-
-Установить Ollama, затем загрузить компактную multilingual-модель:
-
-```powershell
-ollama pull embeddinggemma
-```
-
-`embeddinggemma` занимает около 622 MB и поддерживает более 100 языков.
+Исходный PDF не меняется. Текст и embeddings не отправляются в облако.
+Извлечённая книга, previews и индексы исключены из Git через `data/`.
 
 ## Запуск
+
+Нужны Python с `pdfplumber` и работающий локальный Ollama с
+`embeddinggemma`. В корне создано `.venv` на Python 3.12;
+`pdfplumber==0.11.9` установлен туда и зафиксирован в `requirements.txt`.
+
+Для восстановления зависимостей:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r projects/week-5-task-1/requirements.txt
+```
 
 Из корня учебного репозитория:
 
 ```powershell
-python projects/week-5-task-1/main.py
+.\.venv\Scripts\python.exe projects/week-5-task-1/index_pdf.py "O:/Cloud/Phone/Articles/How to Get Hired.pdf" --output-dir projects/week-5-task-1/data/how-to-get-hired-video
 ```
 
-Результат:
+Если Python не в PATH, выбрать установленный или bundled Python.
+Для каждого повторного запуска выбрать новый каталог вывода:
+существующие извлечённые страницы не перезаписываются.
 
-```text
-projects/week-5-task-1/data/index-fixed.json
-projects/week-5-task-1/data/index-structure.json
-```
+## Готовые результаты
 
-Фактический результат на документации `goost-tools`:
+Текущий проверенный запуск: `data/how-to-get-hired-day21/`.
 
-```text
-fixed      chunks= 509 sources= 43 avg_words=172
-structure  chunks= 895 sources= 43 avg_words= 89
-embedding dimensions=768
-```
+- `pages/*.md` — текст по страницам.
+- `index-fixed.json` — fixed-size индекс.
+- `index-structure.json` — структурный индекс.
+- `extraction-report.json` — объём корпуса, SHA-256, пропущенные страницы и сравнение.
 
-Папка `data` исключена из Git: рабочая документация и embeddings не публикуются.
+Результат 2026-10-05:
 
-Другой источник можно передать явно:
+| Стратегия | Чанки | Среднее слов | Минимум | Максимум | Размерность |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Fixed-size | 79 | 122.7 | 1 | 180 | 768 |
+| Structural по файлам страниц | 63 | 143.8 | 16 | 180 | 768 |
+
+Structural оставляет короткие страницы целыми: чанков меньше, средний размер
+больше. Fixed-size даёт регулярные окна, но может создавать короткий остаток.
+Это сравнение структуры чанков, не доказательство улучшения качества retrieval.
+
+## Проверки
 
 ```powershell
-python projects/week-5-task-1/main.py --source D:\path\to\markdown
+.\.venv\Scripts\python.exe -m unittest discover projects/week-5-task-1 -v
 ```
 
-## Проверка
+Шесть тестов: окна и overlap, метаданные, embeddings, корректность PDF-индекса,
+отклонение неверных vectors/страниц и дублирующихся ID.
 
-```powershell
-python -m unittest discover projects/week-5-task-1 -v
-```
+## Видео
 
-## Что показать на видео
+[Сценарий записи и чеклист](VIDEO-SCENARIO.md).
+Имя записи: `usage-video-w5-t1.mp4`.
 
-1. Показать источник Markdown и ограничения безопасности.
-2. Показать две функции: `fixed_chunks` и `structured_chunks`.
-3. Запустить индексатор.
-4. Сравнить число чанков и средний размер для двух стратегий.
-5. Показать два созданных индекс-файла и метаданные одного чанка.
-6. Подвести итог: fixed-size проще, structural chunking лучше сохраняет разделы документа.
+## Состав кода
 
-## Вывод
+- `index_pdf.py` — PDF-адаптер, метаданные, сравнение и проверка индексов.
+- `main.py` — переиспользуемые chunking и локальные embeddings.
+- `test_main.py`, `test_index_pdf.py` — проверки.
 
-Одна база знаний превращена в два локальных векторных индекса. Fixed-size стратегия даёт равномерные фрагменты, но может разрезать смысловые блоки. Structural chunking сохраняет заголовки и происхождение информации, поэтому удобнее для ответов со ссылками на источники.
-
-## Источники
-
-- [Ollama Generate embeddings API](https://docs.ollama.com/api/embed)
-- [EmbeddingGemma in Ollama](https://ollama.com/library/embeddinggemma)
+Дни 22–25, старые GOOST-индексы и черновики отчётности убраны из рабочей
+структуры в локальный игнорируемый архив. Рабочий бот и недели 1–4 не менялись.

@@ -9,3 +9,5 @@ projects/week-2-task-3/data/
 projects/week-2-task-4/data/
 projects/week-2-task-5/data/
 __pycache__/
+.local-archive/
+.venv/

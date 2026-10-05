@@ -11,7 +11,7 @@ from pathlib import Path
 
 DEFAULT_MODEL = "embeddinggemma"
 DEFAULT_OLLAMA_URL = "http://127.0.0.1:11434"
-DEFAULT_SOURCE = Path(__file__).resolve().parents[3] / "goost-tools" / "documentation"
+DEFAULT_SOURCE = Path(__file__).parent / "data" / "how-to-get-hired-day21" / "pages"
 
 
 @dataclass(frozen=True)

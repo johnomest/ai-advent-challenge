@@ -1,0 +1,12 @@
+[
+  {"id": 1, "chunk_id": "demo-01", "chunk": "Аудио принимается в формате WAV 24 bit.", "quote": "WAV 24 bit", "expected": "accept"},
+  {"id": 2, "chunk_id": "demo-02", "chunk": "Обложка должна быть квадратной.", "quote": "Обложка должна быть квадратной.", "expected": "accept"},
+  {"id": 3, "chunk_id": "demo-03", "chunk": "Перед отправкой проверьте метаданные.", "quote": "проверьте метаданные", "expected": "accept"},
+  {"id": 4, "chunk_id": "demo-04", "chunk": "Статус Draft означает, что материал ещё редактируется.", "quote": "Статус Draft", "expected": "accept"},
+  {"id": 5, "chunk_id": "demo-05", "chunk": "Ссылка должна открываться без авторизации.", "quote": "без авторизации", "expected": "accept"},
+  {"id": 6, "chunk_id": "demo-06", "chunk": "Дата релиза согласуется с менеджером.", "quote": "релиз публикуется автоматически", "expected": "refuse"},
+  {"id": 7, "chunk_id": "demo-07", "chunk": "Используйте только утверждённый мастер.", "quote": "любой мастер", "expected": "refuse"},
+  {"id": 8, "chunk_id": "demo-08", "chunk": "При ошибке задайте уточняющий вопрос.", "quote": "ошибку можно игнорировать", "expected": "refuse"},
+  {"id": 9, "chunk_id": "demo-09", "chunk": "Источник хранится вместе с разделом.", "quote": "Источник хранится", "expected": "accept"},
+  {"id": 10, "chunk_id": "demo-10", "chunk": "Если данных мало, система отказывается отвечать.", "quote": "система отказывается отвечать", "expected": "accept"}
+]

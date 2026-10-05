@@ -1,0 +1,27 @@
+[
+  {
+    "date": "2026-09-08",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / system-native / chromatic-amber",
+    "vibe": "calm technical dark workspace",
+    "paper": "oklch(22.689691% 0.02698411 265.167954)",
+    "accent": "oklch(83.939005% 0.15266453 81.618809)",
+    "nav": "product sidebar (N3-inspired)",
+    "footer": "none",
+    "enrichment": "none",
+    "brief": "GOOST CHAT: persistent conversations, desktop sidebar and mobile drawer",
+    "context": "user-provided",
+    "studied": false,
+    "version": "1.1.0"
+  },
+  {
+    "date": "2026-09-08",
+    "macrostructure": "Split Studio",
+    "theme": "Coral",
+    "nav": "N9",
+    "footer": "Ft2",
+    "enrichment": "none",
+    "brief": "Previous single-chat interface; inferred from existing CSS stamp"
+  }
+]

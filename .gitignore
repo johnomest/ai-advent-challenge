@@ -11,3 +11,5 @@ projects/week-2-task-5/data/
 __pycache__/
 .local-archive/
 .venv/
+*.session
+*.session-*
